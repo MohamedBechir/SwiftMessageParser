@@ -16,5 +16,4 @@ public class SwiftparserApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SwiftparserApplication.class, args);
 	}
-
 }

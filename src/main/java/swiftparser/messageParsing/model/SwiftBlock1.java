@@ -1,0 +1,99 @@
+package swiftparser.messageParsing.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
+public class SwiftBlock1 extends AbstractSwiftBlock{
+    @Column
+    private String applicationId = "F";
+    @Column
+    private String serviceId = "01";
+    @Column
+    private String logicalTerminal;
+    @Column
+    private String sessionNumber = "0000";
+    @Column
+    private String sequenceNumber= "000000";
+
+    public SwiftBlock1(){}
+    public SwiftBlock1( String applicationId, String serviceId, String logicalTerminal, String sessionNumber, String sequenceNumber) {
+        this.applicationId = applicationId;
+        this.serviceId = serviceId;
+        this.logicalTerminal = logicalTerminal;
+        this.sessionNumber = sessionNumber;
+        this.sequenceNumber = sequenceNumber;
+    }
+
+    public Integer getNumber() {
+        return 1;
+    }
+
+    public String getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(String applicationId) {
+        this.applicationId = applicationId;
+    }
+
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public String getLogicalTerminal() {
+        return logicalTerminal;
+    }
+
+    public void setLogicalTerminal(String logicalTerminal) {
+        this.logicalTerminal = logicalTerminal;
+    }
+
+    public String getSessionNumber() {
+        return sessionNumber;
+    }
+
+    public void setSessionNumber(String sessionNumber) {
+        this.sessionNumber = sessionNumber;
+    }
+
+    public String getSequenceNumber() {
+        return sequenceNumber;
+    }
+
+    public void setSequenceNumber(String sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
+    }
+
+    //Field Value(SwiftBlock1Field is an enum type)
+    /*
+    public enum SwiftBlock1Field {
+        ApplicationId,
+        ServiceId,
+        LogicalTerminal,
+        SessionNumber,
+        SequenceNumber
+    }
+
+    public String field(SwiftBlock1Field field) {
+        switch (field) {
+            case ApplicationId:
+                return getApplicationId();
+            case ServiceId:
+                return getServiceId();
+            case LogicalTerminal:
+                return getLogicalTerminal();
+            case SessionNumber:
+                return getSessionNumber();
+            case SequenceNumber:
+                return getSequenceNumber();
+            default:
+                return null;
+        }
+    }
+    */
+}
