@@ -3,12 +3,17 @@ package swiftparser.messageParsing.model;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class AbstractBlockField {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fieldIdGenerator")
+    @SequenceGenerator(name = "fieldIdGenerator", sequenceName = "fieldId")
     private Integer id;
 
     @NonNull

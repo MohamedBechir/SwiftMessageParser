@@ -6,19 +6,29 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.prowidesoftware.swift.model.SwiftBlock1;
 import com.prowidesoftware.swift.model.SwiftBlock2;
+import com.prowidesoftware.swift.model.SwiftBlock3;
+import com.prowidesoftware.swift.model.SwiftBlock4;
+import com.prowidesoftware.swift.model.SwiftBlock5;
 import com.prowidesoftware.swift.model.SwiftMessage;
+import com.prowidesoftware.swift.model.SwiftTagListBlock;
+import com.prowidesoftware.swift.model.Tag;
 import com.prowidesoftware.swift.model.mt.AbstractMT;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-
+import swiftparser.messageParsing.model.AbstractBlockField;
 import swiftparser.messageParsing.model.AbstractSwiftMessage;
 import swiftparser.messageParsing.model.Block1;
 import swiftparser.messageParsing.model.Block2;
+import swiftparser.messageParsing.model.TagBlock;
 import swiftparser.messageParsing.repository.MessageRepository;
 import swiftparser.messageParsing.repository.ParsingRepository; 
 
@@ -55,12 +65,12 @@ public class MessageService {
         String message = new String(bytes);
 
         AbstractMT msg = AbstractMT.parse(message);
+        SwiftMessage swiftMessage = msg.getSwiftMessage();
         
         /*
         Swift Block 1
         */
         Block1 block1 = new Block1();
-        SwiftMessage swiftMessage = msg.getSwiftMessage();
 
         SwiftBlock1 swiftBlock1 = swiftMessage.getBlock1();
 
@@ -80,10 +90,35 @@ public class MessageService {
         block2.setId(block2.getNumber());
 
         /*
+        Swift Tag Block
+        */
+
+        TagBlock tagBlock = new TagBlock();
+        // SwiftBlock3 swiftBlock3 = swiftMessage.getBlock3();
+        SwiftBlock4 swiftBlock4 = swiftMessage.getBlock4();
+        // SwiftBlock5 swiftBlock5 = swiftMessage.getBlock5();
+
+        List<AbstractBlockField> list = new ArrayList<AbstractBlockField>();
+
+
+        for (Tag tag : swiftBlock4.getTags()) {
+            AbstractBlockField abstractBlockField = new AbstractBlockField();
+            abstractBlockField.setTagName(tag.getName());
+            abstractBlockField.setTagValue(tag.getValue());
+            list.add(abstractBlockField);
+        }
+
+        Set<AbstractBlockField> set = new HashSet<AbstractBlockField>(list);
+        set.addAll(list);
+        tagBlock.setId(4);
+        tagBlock.setFields(set);
+
+        /*
         Save Entities
         */
         parsingRepository.save(block1);
         parsingRepository.save(block2);
+        parsingRepository.save(tagBlock);
 
         return "hh";
      } 

@@ -6,10 +6,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+
+/*
+Blocks that contain tags(3, 4, 5)
+*/
 @Entity
 public class TagBlock extends AbstractSwiftBlock {
 
-    private Integer blockNumber;
     
     @OneToMany(cascade = CascadeType.ALL)  
     private Set<AbstractBlockField> fields;
@@ -20,15 +23,6 @@ public class TagBlock extends AbstractSwiftBlock {
 
     public Set<AbstractBlockField> getFields() {
         return fields;
-    }
-
-
-    public Integer getBlockNumber() {
-        return this.blockNumber;
-    }
-
-    public void setBlockNumber(Integer blockNumber) {
-        this.blockNumber = blockNumber;
     }
 
 }

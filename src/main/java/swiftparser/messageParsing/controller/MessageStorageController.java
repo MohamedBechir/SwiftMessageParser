@@ -30,5 +30,4 @@ public class MessageStorageController {
         messageStorageService.extractMessage(Long.valueOf(id));
         return "messageStorageService.extractMessage(Long.valueOf(id))";
     }
-
 }
