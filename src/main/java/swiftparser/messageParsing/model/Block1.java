@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class SwiftBlock1 extends AbstractSwiftBlock{
+public class Block1 extends AbstractSwiftBlock{
     @Column
     private String applicationId = "F";
     @Column
@@ -16,8 +16,8 @@ public class SwiftBlock1 extends AbstractSwiftBlock{
     @Column
     private String sequenceNumber= "000000";
 
-    public SwiftBlock1(){}
-    public SwiftBlock1( String applicationId, String serviceId, String logicalTerminal, String sessionNumber, String sequenceNumber) {
+    public Block1(){}
+    public Block1( String applicationId, String serviceId, String logicalTerminal, String sessionNumber, String sequenceNumber) {
         this.applicationId = applicationId;
         this.serviceId = serviceId;
         this.logicalTerminal = logicalTerminal;
@@ -68,32 +68,4 @@ public class SwiftBlock1 extends AbstractSwiftBlock{
     public void setSequenceNumber(String sequenceNumber) {
         this.sequenceNumber = sequenceNumber;
     }
-
-    //Field Value(SwiftBlock1Field is an enum type)
-    /*
-    public enum SwiftBlock1Field {
-        ApplicationId,
-        ServiceId,
-        LogicalTerminal,
-        SessionNumber,
-        SequenceNumber
-    }
-
-    public String field(SwiftBlock1Field field) {
-        switch (field) {
-            case ApplicationId:
-                return getApplicationId();
-            case ServiceId:
-                return getServiceId();
-            case LogicalTerminal:
-                return getLogicalTerminal();
-            case SessionNumber:
-                return getSessionNumber();
-            case SequenceNumber:
-                return getSequenceNumber();
-            default:
-                return null;
-        }
-    }
-    */
 }

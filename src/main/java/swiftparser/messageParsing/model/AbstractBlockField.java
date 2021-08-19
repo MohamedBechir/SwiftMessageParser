@@ -2,10 +2,15 @@ package swiftparser.messageParsing.model;
 
 import org.springframework.lang.NonNull;
 
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-@MappedSuperclass
+@Entity
 public class AbstractBlockField {
+
+    @Id
+    private Integer id;
+
     @NonNull
     private String tagName;
 

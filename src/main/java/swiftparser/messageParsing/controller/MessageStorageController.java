@@ -26,8 +26,9 @@ public class MessageStorageController {
     }
 
     @GetMapping("messages")
-    public String readMessage(@RequestParam("id") Integer id){
-        return messageStorageService.extractMessage(Long.valueOf(id));
+    public String readMessage(@RequestParam("id") Integer id) throws IOException{
+        messageStorageService.extractMessage(Long.valueOf(id));
+        return "messageStorageService.extractMessage(Long.valueOf(id))";
     }
 
 }
