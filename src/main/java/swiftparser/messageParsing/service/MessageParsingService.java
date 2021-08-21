@@ -12,6 +12,7 @@ import com.prowidesoftware.swift.model.SwiftBlock3;
 import com.prowidesoftware.swift.model.SwiftBlock4;
 import com.prowidesoftware.swift.model.SwiftBlock5;
 import com.prowidesoftware.swift.model.SwiftMessage;
+import com.prowidesoftware.swift.model.SwiftTagListBlock;
 import com.prowidesoftware.swift.model.Tag;
 import com.prowidesoftware.swift.model.mt.AbstractMT;
 
@@ -32,6 +33,28 @@ public class MessageParsingService {
 
     @Autowired
     private BlockRepository blockRepository;
+
+
+    private void storeBlock(SwiftTagListBlock swiftBlock) {
+        TagBlock tagBlock = new TagBlock();
+        if (swiftBlock != null) {
+            List<AbstractBlockField> list = new ArrayList<AbstractBlockField>();
+
+
+            for (Tag tag : swiftBlock.getTags()) {
+                AbstractBlockField abstractBlockField = new AbstractBlockField();
+                abstractBlockField.setTagName(tag.getName());
+                abstractBlockField.setTagValue(tag.getValue());
+                list.add(abstractBlockField);
+            }
+    
+            Set<AbstractBlockField> set = new HashSet<AbstractBlockField>(list);
+            set.addAll(list);
+            tagBlock.setId(swiftBlock.getNumber());
+            tagBlock.setFields(set);  
+            blockRepository.save(tagBlock); 
+        }
+    }
 
     public String decomposeMessage(Long id) throws IOException {
         
@@ -68,66 +91,13 @@ public class MessageParsingService {
         Swift Tag Block(Blocks 3, 4, 5)
         */
 
-        TagBlock tagBlock = new TagBlock();
         SwiftBlock3 swiftBlock3 = swiftMessage.getBlock3();
         SwiftBlock4 swiftBlock4 = swiftMessage.getBlock4();
         SwiftBlock5 swiftBlock5 = swiftMessage.getBlock5();
 
-
-        if (swiftBlock3 != null) {
-            List<AbstractBlockField> list3 = new ArrayList<AbstractBlockField>();
-
-
-            for (Tag tag : swiftBlock3.getTags()) {
-                AbstractBlockField abstractBlockField = new AbstractBlockField();
-                abstractBlockField.setTagName(tag.getName());
-                abstractBlockField.setTagValue(tag.getValue());
-                list3.add(abstractBlockField);
-            }
-    
-            Set<AbstractBlockField> set3 = new HashSet<AbstractBlockField>(list3);
-            set3.addAll(list3);
-            tagBlock.setId(3);
-            tagBlock.setFields(set3);  
-            blockRepository.save(tagBlock); 
-        }
-
-        if (swiftBlock4 != null) {
-            List<AbstractBlockField> list4 = new ArrayList<AbstractBlockField>();
-
-
-        for (Tag tag : swiftBlock4.getTags()) {
-            AbstractBlockField abstractBlockField = new AbstractBlockField();
-            abstractBlockField.setTagName(tag.getName());
-            abstractBlockField.setTagValue(tag.getValue());
-            list4.add(abstractBlockField);
-        }
-
-        Set<AbstractBlockField> set4 = new HashSet<AbstractBlockField>(list4);
-        set4.addAll(list4);
-        tagBlock.setId(4);
-        tagBlock.setFields(set4);       
-        blockRepository.save(tagBlock);     
-        }
-
-
-        if (swiftBlock5 != null) {
-            List<AbstractBlockField> list5 = new ArrayList<AbstractBlockField>();
-
-
-            for (Tag tag : swiftBlock5.getTags()) {
-                AbstractBlockField abstractBlockField = new AbstractBlockField();
-                abstractBlockField.setTagName(tag.getName());
-                abstractBlockField.setTagValue(tag.getValue());
-                list5.add(abstractBlockField);
-            }
-
-            Set<AbstractBlockField> set5 = new HashSet<AbstractBlockField>(list5);
-            set5.addAll(list5);
-            tagBlock.setId(5);
-            tagBlock.setFields(set5);   
-            blockRepository.save(tagBlock);
-        }
+        storeBlock(swiftBlock3);
+        storeBlock(swiftBlock4);
+        storeBlock(swiftBlock5);
 
         return "Success";
     }
