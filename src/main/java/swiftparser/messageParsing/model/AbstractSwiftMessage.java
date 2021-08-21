@@ -19,8 +19,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDateTime > {
 
-    @Transient
-    public AbstractSwiftBlock abstractSwiftBlock;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "swiftMessageIdGenerator")
