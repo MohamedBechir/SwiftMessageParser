@@ -44,7 +44,12 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>7.0.1.Final</version>
-		</dependency>		
+		</dependency>
+		<dependency>
+			<groupId>com.prowidesoftware</groupId>
+			<artifactId>pw-swift-core</artifactId>
+			<version>SRU2020-9.1.6</version>
+		</dependency>				
 	</dependencies>
 
 	<build>
