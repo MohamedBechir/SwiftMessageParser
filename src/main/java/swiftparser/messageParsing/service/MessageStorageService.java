@@ -6,7 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -43,5 +47,13 @@ public class MessageStorageService {
         String message = new String(bytes);
 
         return message;
-     } 
+     }
+
+     @Transactional
+     public String deleteMessage(Long id){
+         List<Long> list = new ArrayList<>();
+         list.add(id);
+         messageRepository.deleteAllByIdInBatch(list);
+         return "Success";
+     }
 }

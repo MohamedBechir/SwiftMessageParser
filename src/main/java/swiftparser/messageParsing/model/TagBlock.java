@@ -13,7 +13,7 @@ Blocks that contain tags(3, 4, 5)
 public class TagBlock extends AbstractSwiftBlock {
 
     
-    @OneToMany(cascade = CascadeType.ALL)  
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)  
     private Set<AbstractBlockField> fields;
 
     public void setFields(Set<AbstractBlockField> fields) {

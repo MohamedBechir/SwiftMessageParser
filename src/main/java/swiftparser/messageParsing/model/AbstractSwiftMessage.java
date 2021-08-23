@@ -28,7 +28,7 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
     @JoinColumn(name = "block2_id")
     private Block2 block2;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     private Set<TagBlock> tagBlocks;
 
     @Id
@@ -149,7 +149,10 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
     }
 
     public void setTagBlock(Set<TagBlock> tagBlocks) {
-        this.tagBlocks = tagBlocks;
+        this.tagBlocks.clear();
+    if (tagBlocks != null) {
+        this.tagBlocks.addAll(tagBlocks);
+    }
     }
 
     public Set<TagBlock> getTagBlock() {
