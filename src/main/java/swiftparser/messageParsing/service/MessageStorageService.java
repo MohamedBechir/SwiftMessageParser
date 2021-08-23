@@ -34,7 +34,7 @@ public class MessageStorageService {
 
     public String readMessage(Long id) throws IOException {
 
-        AbstractSwiftMessage abstractSwiftMessage = messageRepository.findById(id).get();
+        AbstractSwiftMessage abstractSwiftMessage = messageRepository.getById(id);
         byte[] bytes = new byte[Integer.valueOf(abstractSwiftMessage.getFileSize().intValue())];
 
         int i=0;
@@ -44,9 +44,4 @@ public class MessageStorageService {
 
         return message;
      } 
-
-     public void deleteMessage(Long id){
-        messageRepository.deleteById(id);
-     }
-
 }

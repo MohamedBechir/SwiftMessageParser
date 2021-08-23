@@ -3,7 +3,6 @@ package swiftparser.messageParsing.controller;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,11 +28,5 @@ public class MessageStorageController {
     @GetMapping("messages")
     public String readMessage(@RequestParam("id") Integer id) throws IOException{
         return  messageStorageService.readMessage(Long.valueOf(id));
-    }
-
-    @DeleteMapping("messages")
-    public String deleteMessage(@RequestParam("id") Integer id){
-        messageStorageService.deleteMessage(Long.valueOf(id));
-        return "Message Deleted Successfully!";
     }
 }

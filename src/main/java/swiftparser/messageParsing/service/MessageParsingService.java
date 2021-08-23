@@ -20,10 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import swiftparser.messageParsing.model.AbstractBlockField;
+import swiftparser.messageParsing.model.AbstractSwiftMessage;
 import swiftparser.messageParsing.model.Block1;
 import swiftparser.messageParsing.model.Block2;
 import swiftparser.messageParsing.model.TagBlock;
 import swiftparser.messageParsing.repository.BlockRepository;
+import swiftparser.messageParsing.repository.MessageRepository;
 
 @Service
 public class MessageParsingService {
@@ -33,6 +35,9 @@ public class MessageParsingService {
 
     @Autowired
     private BlockRepository blockRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
 
     private void storeBlock(SwiftTagListBlock swiftBlock) {
@@ -57,9 +62,13 @@ public class MessageParsingService {
     }
 
     public String decomposeMessage(Long id) throws IOException {
-        
+
+        // Get the message by its ID
+        AbstractSwiftMessage abstractSwiftMessage = messageRepository.findById(id).get();
+        // Read the SWIFT Message as a String
         String message = messageStorageService.readMessage(id);
-        AbstractMT msg = AbstractMT.parse(message);
+        // Parse the SWIFT Message to an Abstract MT Message
+        AbstractMT msg = AbstractMT.parse("File size is: " + message);
         SwiftMessage swiftMessage = msg.getSwiftMessage();
         
         /*
@@ -75,17 +84,24 @@ public class MessageParsingService {
         block1.setSessionNumber(swiftBlock1.getSessionNumber());
         block1.setSequenceNumber(swiftBlock1.getSequenceNumber());
         block1.setId(swiftBlock1.getNumber());
+        blockRepository.save(block1);
+        abstractSwiftMessage.setBlock1(block1);
+
         /*
         Swift Block 2
         */
         Block2 block2 = new Block2();
+
         SwiftBlock2 swiftBlock2 = swiftMessage.getBlock2();
+
         block2.setMessagePriority(swiftBlock2.getMessagePriority());
         block2.setMessageType(swiftBlock2.getMessageType());
         block2.setId(block2.getNumber());
-
-        blockRepository.save(block1);
         blockRepository.save(block2);
+        abstractSwiftMessage.setBlock2(block2);
+
+        messageRepository.save(abstractSwiftMessage);
+
 
         /*
         Swift Tag Block(Blocks 3, 4, 5)

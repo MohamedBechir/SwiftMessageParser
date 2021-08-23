@@ -5,6 +5,7 @@ import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -19,6 +20,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDateTime > {
 
+    @OneToOne
+    @JoinColumn(name = "block1_id")
+    private Block1 block1;
+
+    @OneToOne
+    @JoinColumn(name = "block2_id")
+    private Block2 block2;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "swiftMessageIdGenerator")
@@ -121,4 +129,19 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
         return this.fileSize;
     }
 
+    public void setBlock1(Block1 block1) {
+        this.block1 = block1;
+    }
+
+    public Block1 getBlock1() {
+        return block1;
+    }
+
+    public void setBlock2(Block2 block2) {
+        this.block2 = block2;
+    }
+
+    public Block2 getBlock2() {
+        return block2;
+    }
 }

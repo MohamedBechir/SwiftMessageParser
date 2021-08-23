@@ -6,7 +6,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-
 /*
 Blocks that contain tags(3, 4, 5)
 */

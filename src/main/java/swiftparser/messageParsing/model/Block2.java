@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 
 @Entity
 public class Block2 extends AbstractSwiftBlock{
+
     @Column
     private String messagePriority = "N";
     @Column
