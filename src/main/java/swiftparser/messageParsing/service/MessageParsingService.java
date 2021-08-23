@@ -39,25 +39,26 @@ public class MessageParsingService {
     @Autowired
     private MessageRepository messageRepository;
 
+    List<TagBlock> tagBlocksList = new ArrayList<TagBlock>();
 
-    private void storeBlock(SwiftTagListBlock swiftBlock) {
+    private void storeBlock(SwiftTagListBlock swiftBlock, AbstractSwiftMessage message) {
         TagBlock tagBlock = new TagBlock();
         if (swiftBlock != null) {
-            List<AbstractBlockField> list = new ArrayList<AbstractBlockField>();
-
+            List<AbstractBlockField> fieldsList = new ArrayList<AbstractBlockField>();
 
             for (Tag tag : swiftBlock.getTags()) {
                 AbstractBlockField abstractBlockField = new AbstractBlockField();
                 abstractBlockField.setTagName(tag.getName());
                 abstractBlockField.setTagValue(tag.getValue());
-                list.add(abstractBlockField);
+                fieldsList.add(abstractBlockField);
             }
     
-            Set<AbstractBlockField> set = new HashSet<AbstractBlockField>(list);
-            set.addAll(list);
+            Set<AbstractBlockField> fieldsSet = new HashSet<AbstractBlockField>(fieldsList);
+            fieldsSet.addAll(fieldsList);
             tagBlock.setId(swiftBlock.getNumber());
-            tagBlock.setFields(set);  
-            blockRepository.save(tagBlock); 
+            tagBlock.setFields(fieldsSet);
+            blockRepository.save(tagBlock);
+            tagBlocksList.add(tagBlock);
         }
     }
 
@@ -100,9 +101,6 @@ public class MessageParsingService {
         blockRepository.save(block2);
         abstractSwiftMessage.setBlock2(block2);
 
-        messageRepository.save(abstractSwiftMessage);
-
-
         /*
         Swift Tag Block(Blocks 3, 4, 5)
         */
@@ -111,9 +109,14 @@ public class MessageParsingService {
         SwiftBlock4 swiftBlock4 = swiftMessage.getBlock4();
         SwiftBlock5 swiftBlock5 = swiftMessage.getBlock5();
 
-        storeBlock(swiftBlock3);
-        storeBlock(swiftBlock4);
-        storeBlock(swiftBlock5);
+        storeBlock(swiftBlock3, abstractSwiftMessage);
+        storeBlock(swiftBlock4, abstractSwiftMessage);
+        storeBlock(swiftBlock5, abstractSwiftMessage);
+
+        Set<TagBlock> tagBlocksSet = new HashSet<TagBlock>(tagBlocksList);
+        tagBlocksSet.addAll(tagBlocksList);
+        abstractSwiftMessage.setTagBlock(tagBlocksSet);
+        messageRepository.save(abstractSwiftMessage);
 
         return "Success";
     }

@@ -2,9 +2,6 @@ package swiftparser.messageParsing.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Block1 extends AbstractSwiftBlock{

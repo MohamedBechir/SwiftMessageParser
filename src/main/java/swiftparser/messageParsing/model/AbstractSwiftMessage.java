@@ -28,6 +28,9 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
     @JoinColumn(name = "block2_id")
     private Block2 block2;
 
+    @OneToMany
+    private Set<TagBlock> tagBlocks;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "swiftMessageIdGenerator")
     @SequenceGenerator(name = "swiftMessageIdGenerator", sequenceName = "swiftId")
@@ -143,5 +146,13 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
 
     public Block2 getBlock2() {
         return block2;
+    }
+
+    public void setTagBlock(Set<TagBlock> tagBlocks) {
+        this.tagBlocks = tagBlocks;
+    }
+
+    public Set<TagBlock> getTagBlock() {
+        return tagBlocks;
     }
 }
