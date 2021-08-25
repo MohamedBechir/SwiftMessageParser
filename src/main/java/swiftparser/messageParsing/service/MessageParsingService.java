@@ -55,7 +55,7 @@ public class MessageParsingService {
     
             Set<AbstractBlockField> fieldsSet = new HashSet<AbstractBlockField>(fieldsList);
             fieldsSet.addAll(fieldsList);
-            tagBlock.setId(swiftBlock.getNumber());
+            tagBlock.setBlockNumber(swiftBlock.getNumber());
             tagBlock.setFields(fieldsSet);
             blockRepository.save(tagBlock);
             tagBlocksList.add(tagBlock);
@@ -84,7 +84,6 @@ public class MessageParsingService {
         block1.setServiceId(swiftBlock1.getServiceId());
         block1.setSessionNumber(swiftBlock1.getSessionNumber());
         block1.setSequenceNumber(swiftBlock1.getSequenceNumber());
-        block1.setId(swiftBlock1.getNumber());
         blockRepository.save(block1);
         abstractSwiftMessage.setBlock1(block1);
 
@@ -97,7 +96,6 @@ public class MessageParsingService {
 
         block2.setMessagePriority(swiftBlock2.getMessagePriority());
         block2.setMessageType(swiftBlock2.getMessageType());
-        block2.setId(block2.getNumber());
         blockRepository.save(block2);
         abstractSwiftMessage.setBlock2(block2);
 

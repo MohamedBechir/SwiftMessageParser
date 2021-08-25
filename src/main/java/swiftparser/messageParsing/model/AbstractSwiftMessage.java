@@ -9,6 +9,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -31,28 +33,35 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
     @OneToMany(orphanRemoval = true)
     private Set<TagBlock> tagBlocks;
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "swiftMessageIdGenerator")
     @SequenceGenerator(name = "swiftMessageIdGenerator", sequenceName = "swiftId")
     protected Long id;
 
+    @JsonIgnore
     @CreatedBy
     protected String createdBy;
 
+    @JsonIgnore
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     protected Date createdDate;
 
+    @JsonIgnore
     @LastModifiedBy
     protected String lastModifiedBy;
 
+    @JsonIgnore
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     protected Date lastModifieDate;
 
     @Lob
+    @JsonIgnore
     protected Byte[] messageBody;
 
+    @JsonIgnore
     protected Long fileSize;
 
     public AbstractSwiftMessage(String createdBy, Date createdDate, String lastModifiedBy, Date lastModifieDate, Long fileSize)

@@ -3,7 +3,11 @@ package swiftparser.messageParsing.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 @Entity
+@JsonRootName("Block1")
 public class Block1 extends AbstractSwiftBlock{
 
     @Column
