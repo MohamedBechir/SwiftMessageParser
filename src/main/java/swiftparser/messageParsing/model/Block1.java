@@ -3,7 +3,6 @@ package swiftparser.messageParsing.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @Entity
