@@ -7,7 +7,6 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.SequenceGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
 @MappedSuperclass
 public class AbstractSwiftBlock {
