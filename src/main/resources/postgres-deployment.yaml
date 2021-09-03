@@ -22,6 +22,9 @@ spec:
         - name: postgres
           image: postgres
           imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+              name: postgres
           env:
             - name: POSTGRES_USER
               valueFrom:
@@ -38,7 +41,3 @@ spec:
                 configMapKeyRef:
                   name: postgres-conf
                   key: name
-
-          ports:
-            - containerPort: 5432
-              name: postgres

@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: postgres-conf
 data:
-  host: bechir
   name: postgres
+  host: 10.106.221.137

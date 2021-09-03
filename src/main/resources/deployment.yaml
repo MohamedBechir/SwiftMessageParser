@@ -21,7 +21,7 @@ spec:
             - name: DB_HOST   # Setting Database host address from configMap
               valueFrom:
                 configMapKeyRef:
-                  name: postgres-conf  # name of configMap
+                  name: postgres-conf # name of configMap
                   key: host
             - name: DB_NAME  # Setting Database name from configMap
               valueFrom:
@@ -38,20 +38,16 @@ spec:
                 secretKeyRef:
                   name: postgres-credentials
                   key: postgres_password
-
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: swiftmessageparser-service
-  labels:
-    name: swiftmessageparser
 spec:
-  ports:
-    - nodePort: 30163
-      port: 8080
-      targetPort: 8080
-      protocol: TCP
-  selector:
-    app: springboot-postgres-k8s
   type: NodePort
+  selector:
+    app: swiftmessageparser
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30007
