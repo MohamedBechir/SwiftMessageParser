@@ -80,6 +80,10 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
         return null;
     }
 
+    public Long getMessageId() {
+        return id;
+    }
+
     @Override
     public boolean isNew() {
         return null == getId();
@@ -88,6 +92,14 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
     @Override
     public Optional<String> getCreatedBy() {
         return Optional.ofNullable(createdBy);
+    }
+
+    public Date getCreatedAt(){
+        return createdDate;
+    }
+
+    public void setCreatedAt(Date createdAt){
+        this.createdDate = createdAt;
     }
 
     @Override
