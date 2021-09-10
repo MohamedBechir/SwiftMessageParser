@@ -20,11 +20,11 @@ public class MessageInfoService {
         AbstractSwiftMessage abstractSwiftMessage = messageRepository.findById(id).get();
         MessageInfoModel messageInfoModel = new MessageInfoModel();
         
-        messageInfoModel.setId(Long.valueOf(id));
+        messageInfoModel.setId(String.valueOf(id));
         messageInfoModel.setSenderBIC(abstractSwiftMessage.getBlock1().getLogicalTerminal());
         messageInfoModel.setReceiverBIC(abstractSwiftMessage.getBlock1().getLogicalTerminal());
         messageInfoModel.setMessageType("MT" + abstractSwiftMessage.getBlock2().getMessageType());
-        messageInfoModel.setCreatedAt(abstractSwiftMessage.getCreatedAt());;
+        messageInfoModel.setCreatedAt(abstractSwiftMessage.getCreatedAt().toString());
         return messageInfoModel;
     }
 
@@ -33,11 +33,11 @@ public class MessageInfoService {
         List<MessageInfoModel> messageInfoModels = new ArrayList<>();
 
         for (AbstractSwiftMessage abstractSwiftMessage : abstractSwiftMessages) {
-            messageInfoModels.add( new MessageInfoModel(abstractSwiftMessage.getMessageId(),
+            messageInfoModels.add( new MessageInfoModel(String.valueOf(abstractSwiftMessage.getMessageId()),
             abstractSwiftMessage.getBlock1().getLogicalTerminal(),
             abstractSwiftMessage.getBlock1().getLogicalTerminal(),
             "MT" + abstractSwiftMessage.getBlock2().getMessageType() ,
-            abstractSwiftMessage.getCreatedAt() ));
+            abstractSwiftMessage.getCreatedAt().toString() ));
         }
         return messageInfoModels;
     }

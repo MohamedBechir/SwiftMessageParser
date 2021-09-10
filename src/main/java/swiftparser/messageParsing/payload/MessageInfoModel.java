@@ -1,18 +1,17 @@
 package swiftparser.messageParsing.payload;
 
-import java.util.Date;
 
 public class MessageInfoModel {
 
-    private Long id;
+    private String id;
     private String senderBIC;
     private String receiverBIC;
     private String messageType;
-    private Date createdAt;
+    private String createdAt;
 
     public MessageInfoModel(){}
 
-    public MessageInfoModel(Long id, String senderBIC, String receiverBIC, String messageType, Date createdAt){
+    public MessageInfoModel(String id, String senderBIC, String receiverBIC, String messageType, String createdAt){
         this.id = id;
         this.senderBIC = senderBIC;
         this.receiverBIC = receiverBIC;
@@ -20,7 +19,7 @@ public class MessageInfoModel {
         this.createdAt = createdAt;
     }
 
-    public Long getId(){
+    public String getId(){
         return id;
     }
 
@@ -36,11 +35,11 @@ public class MessageInfoModel {
         return messageType;
     }
 
-    public Date getCreatedAt(){
+    public String getCreatedAt(){
         return createdAt;
     }
 
-    public void setId(Long id){
+    public void setId(String id){
         this.id = id;
     }
 
@@ -56,7 +55,7 @@ public class MessageInfoModel {
         this.messageType = messageType;
     }
 
-    public void setCreatedAt(Date createdAt){
+    public void setCreatedAt(String createdAt){
         this.createdAt = createdAt;
     }
     

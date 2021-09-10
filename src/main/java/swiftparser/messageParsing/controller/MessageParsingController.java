@@ -37,5 +37,4 @@ public class MessageParsingController {
     public List<MessageInfoModel> getDecomposedMessages() {
          return messageInfoService.getDecomposedMessages();
     }
-
 }
