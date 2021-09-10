@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import swiftparser.messageParsing.model.AbstractSwiftMessage;
 import swiftparser.messageParsing.payload.MessageInfoModel;
 import swiftparser.messageParsing.service.MessageParsingService;
 import swiftparser.messageParsing.service.MessageInfoService;

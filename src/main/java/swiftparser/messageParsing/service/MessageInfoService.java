@@ -1,6 +1,5 @@
 package swiftparser.messageParsing.service;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
