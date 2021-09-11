@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import swiftparser.messageParsing.model.AbstractSwiftMessage;
 import swiftparser.messageParsing.payload.MessageDetailedInfoModel;
 import swiftparser.messageParsing.payload.MessageGeneralInfoModel;
 import swiftparser.messageParsing.service.MessageParsingService;
@@ -24,6 +23,7 @@ public class MessageParsingController {
     @Autowired
     MessageInfoService messageInfoService;
 
+    // Decompose the message into Blocks and Store them
     @PostMapping("/messages/decomposedMessage")
     public String decomposeMessage(@RequestParam("id") Integer id) throws IOException {
         messageParsingService.decomposeMessage(Long.valueOf(id));

@@ -36,16 +36,18 @@ public class MessageStorageService {
         return abstractSwiftMessageResponse;
     } 
 
+    @Transactional
     public String readMessage(Long id) throws IOException {
 
         AbstractSwiftMessage abstractSwiftMessage = messageRepository.getById(id);
+        System.out.println("MESSAGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(abstractSwiftMessage.getMessageBody());
         byte[] bytes = new byte[Integer.valueOf(abstractSwiftMessage.getFileSize().intValue())];
 
         int i=0;
         for(Byte b: abstractSwiftMessage.getMessageBody())
             bytes[i++] = b.byteValue();
         String message = new String(bytes);
-
         return message;
      }
 

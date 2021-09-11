@@ -21,16 +21,19 @@ public class MessageStorageController {
     @Autowired
     MessageStorageService messageStorageService;
 
+    // Store the Message from a file
     @PostMapping("messages")
     public AbstractSwiftMessage storeMessage(@RequestParam("file") MultipartFile file) throws IOException{
         return messageStorageService.saveMessage(file);
     }
 
-    @GetMapping("messages")
-    public String readMessage(@RequestParam("id") Integer id) throws IOException{
-        return  messageStorageService.readMessage(Long.valueOf(id));
+    // Get a specific whole message as a String
+    @GetMapping("messagees")
+    public String decomposeMessage(@RequestParam("id") Integer id) throws IOException {
+        return messageStorageService.readMessage(Long.valueOf(id));
     }
 
+    // Delete a specific message[WIP]
     @DeleteMapping("messages")
     public String deleteMessage(@RequestParam("id") Integer id){
         messageStorageService.deleteMessage(Long.valueOf(id));
