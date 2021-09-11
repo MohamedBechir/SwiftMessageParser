@@ -1,7 +1,7 @@
 package swiftparser.messageParsing.payload;
 
 
-public class MessageInfoModel {
+public class MessageGeneralInfoModel {
 
     private String id;
     private String senderBIC;
@@ -9,9 +9,9 @@ public class MessageInfoModel {
     private String messageType;
     private String createdAt;
 
-    public MessageInfoModel(){}
+    public MessageGeneralInfoModel(){}
 
-    public MessageInfoModel(String id, String senderBIC, String receiverBIC, String messageType, String createdAt){
+    public MessageGeneralInfoModel(String id, String senderBIC, String receiverBIC, String messageType, String createdAt){
         this.id = id;
         this.senderBIC = senderBIC;
         this.receiverBIC = receiverBIC;

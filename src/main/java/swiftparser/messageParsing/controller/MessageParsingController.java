@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import swiftparser.messageParsing.payload.MessageInfoModel;
+import swiftparser.messageParsing.model.AbstractSwiftMessage;
+import swiftparser.messageParsing.payload.MessageDetailedInfoModel;
+import swiftparser.messageParsing.payload.MessageGeneralInfoModel;
 import swiftparser.messageParsing.service.MessageParsingService;
 import swiftparser.messageParsing.service.MessageInfoService;
 
@@ -28,13 +30,15 @@ public class MessageParsingController {
         return "Success";
     }
 
+    // For Specific Message Information
     @GetMapping("/messages/decomposedMessage")
-    public MessageInfoModel decomposedMessage(@RequestParam("id") Integer id) {
+    public MessageDetailedInfoModel decomposedMessage(@RequestParam("id") Integer id) {
         return messageInfoService.getMessageInfo(Long.valueOf(id));
     }
 
+    // For the table of SWIFT Messages
     @GetMapping("messages/decomposedMessages")
-    public List<MessageInfoModel> getDecomposedMessages() {
+    public List<MessageGeneralInfoModel> getDecomposedMessages() {
          return messageInfoService.getDecomposedMessages();
     }
 }
