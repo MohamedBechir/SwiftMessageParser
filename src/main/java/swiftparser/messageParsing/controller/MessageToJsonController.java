@@ -26,8 +26,9 @@ public class MessageToJsonController {
     @PostMapping("messages/send/{id}/toJson")
     public Object sendJSONToQueue(@PathVariable Integer id) throws JsonProcessingException{
         try{
-            jmsTemplate.convertAndSend("DEV.QUEUE.2", messageToJsonService.convertToJson(Long.valueOf(id)));
-            return  "JSON Message successfully added to DEV.QUEUE.2";
+            String Json = messageToJsonService.convertToJson(Long.valueOf(id));
+            jmsTemplate.convertAndSend("DEV.QUEUE.2", Json);
+            return  Json;
         }catch(JmsException ex){
             ex.printStackTrace();
             return "FAIL";
