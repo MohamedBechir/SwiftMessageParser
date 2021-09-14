@@ -31,7 +31,7 @@ public class MessageStorageController {
     // Get a specific whole message as a String
     @GetMapping("messages/{id}")
     public String decomposeMessage(@PathVariable String id) throws IOException {
-        return messageStorageService.readMessage(Long.valueOf(id));
+        return messageStorageService.readMessage(Long.valueOf(id)).replace("\n", " ");
     }
 
     // Delete a specific message[WIP]

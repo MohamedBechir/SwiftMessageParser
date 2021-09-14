@@ -45,8 +45,7 @@ public class MessageStorageService {
         int i=0;
         for(Byte b: abstractSwiftMessage.getMessageBody())
             bytes[i++] = b.byteValue();
-        String message = new String(bytes);
-        return message.replace("\n", " ");
+        return new String(bytes);
      }
 
      @Transactional
