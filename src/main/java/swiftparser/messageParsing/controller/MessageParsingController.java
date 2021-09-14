@@ -34,7 +34,7 @@ public class MessageParsingController {
 
     // Get Message Detail Info
     @GetMapping("/messages/decomposedMessages/{id}")
-    public List<MessageDetailedInfoModel> decomposedMessage(@PathVariable String id) {
+    public MessageDetailedInfoModel decomposedMessage(@PathVariable String id) {
         return messageInfoService.getMessageDetailInfo(Long.valueOf(id));
     }
 
