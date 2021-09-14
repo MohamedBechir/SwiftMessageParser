@@ -44,6 +44,14 @@ public class MessageParsingService {
     private void storeBlock(SwiftTagListBlock swiftBlock, AbstractSwiftMessage message) {
         TagBlock tagBlock = new TagBlock();
         if (swiftBlock != null) {
+            String blockName = swiftBlock.getName();
+            if (blockName.equals("3")) {
+                tagBlock.setBlockName("User Header Block");
+            } else if(blockName.equals("4")) {
+                tagBlock.setBlockName("Text Block");
+            }else if(blockName.equals("5")){
+                tagBlock.setBlockName("Tail Block");
+            }
             List<AbstractBlockField> fieldsList = new ArrayList<AbstractBlockField>();
 
             for (Tag tag : swiftBlock.getTags()) {
@@ -84,6 +92,7 @@ public class MessageParsingService {
         block1.setServiceId(swiftBlock1.getServiceId());
         block1.setSessionNumber(swiftBlock1.getSessionNumber());
         block1.setSequenceNumber(swiftBlock1.getSequenceNumber());
+        block1.setBlockName("Basic Header Block");
         blockRepository.save(block1);
         abstractSwiftMessage.setBlock1(block1);
 
@@ -96,6 +105,7 @@ public class MessageParsingService {
 
         block2.setMessagePriority(swiftBlock2.getMessagePriority());
         block2.setMessageType(swiftBlock2.getMessageType());
+        block2.setBlockName("Application Header Block");
         blockRepository.save(block2);
         abstractSwiftMessage.setBlock2(block2);
 

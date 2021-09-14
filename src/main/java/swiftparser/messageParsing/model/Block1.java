@@ -19,6 +19,8 @@ public class Block1 extends AbstractSwiftBlock{
     private String sessionNumber = "0000";
     @Column
     private String sequenceNumber= "000000";
+    @Column
+    private String blockName;
 
     public Block1(){}
     public Block1( String applicationId, String serviceId, String logicalTerminal, String sessionNumber, String sequenceNumber) {
@@ -72,4 +74,13 @@ public class Block1 extends AbstractSwiftBlock{
     public void setSequenceNumber(String sequenceNumber) {
         this.sequenceNumber = sequenceNumber;
     }
+
+    public String getBlockName() {
+        return this.blockName;
+    }
+
+    public void setBlockName(String blockName) {
+        this.blockName = blockName;
+    }
+
 }

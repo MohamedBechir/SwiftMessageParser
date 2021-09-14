@@ -13,6 +13,8 @@ public class Block2 extends AbstractSwiftBlock{
     private String messagePriority = "N";
     @Column
     private String messageType = null;
+    @Column
+    private String blockName;
 
     public Block2(){
         super();
@@ -45,4 +47,14 @@ public class Block2 extends AbstractSwiftBlock{
     public boolean isOutput(){
         return false;
     }
+
+
+    public String getBlockName() {
+        return this.blockName;
+    }
+
+    public void setBlockName(String blockName) {
+        this.blockName = blockName;
+    }
+
 }
