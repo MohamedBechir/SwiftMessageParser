@@ -10,9 +10,11 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class Block2 extends AbstractSwiftBlock{
 
     @Column
-    private String messagePriority = "N";
+    private String messagePriority;
     @Column
-    private String messageType = null;
+    private String messageType;
+    @Column 
+    private String messageDirection;
     @Column
     private String blockName;
 
@@ -40,14 +42,14 @@ public class Block2 extends AbstractSwiftBlock{
         this.messagePriority = messagePriority;
     }
 
-    public boolean isInput(){
-        return true;
+
+    public String getMessageDirection() {
+        return this.messageDirection;
     }
 
-    public boolean isOutput(){
-        return false;
+    public void setMessageDirection(String messageDirection) {
+        this.messageDirection = messageDirection;
     }
-
 
     public String getBlockName() {
         return this.blockName;

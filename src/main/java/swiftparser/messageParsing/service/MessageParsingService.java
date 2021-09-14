@@ -104,8 +104,20 @@ public class MessageParsingService {
         SwiftBlock2 swiftBlock2 = swiftMessage.getBlock2();
 
         block2.setMessagePriority(swiftBlock2.getMessagePriority());
+        if(swiftBlock2.getMessagePriority().equals("S")){
+            block2.setMessagePriority("System");
+        }else if (swiftBlock2.getMessagePriority().equals("N")){
+            block2.setMessagePriority("Normal");
+        }else if (swiftBlock2.getMessagePriority().equals("U")){
+            block2.setMessagePriority("Urgent");
+        }
         block2.setMessageType(swiftBlock2.getMessageType());
         block2.setBlockName("Application Header Block");
+        if(swiftBlock2.isInput()){
+            block2.setMessageDirection("Input");
+        }else{
+            block2.setMessageDirection("Output");
+        }
         blockRepository.save(block2);
         abstractSwiftMessage.setBlock2(block2);
 
