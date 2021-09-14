@@ -1,11 +1,9 @@
 package swiftparser.messageParsing.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import swiftparser.messageParsing.model.AbstractSwiftMessage;
 import swiftparser.messageParsing.payload.MessageDetailedInfoModel;
 import swiftparser.messageParsing.payload.MessageGeneralInfoModel;
 import swiftparser.messageParsing.service.MessageParsingService;
@@ -37,7 +34,7 @@ public class MessageParsingController {
 
     // Get Message Detail Info
     @GetMapping("/messages/decomposedMessages/{id}")
-    public MessageDetailedInfoModel decomposedMessage(@PathVariable String id) {
+    public List<MessageDetailedInfoModel> decomposedMessage(@PathVariable String id) {
         return messageInfoService.getMessageDetailInfo(Long.valueOf(id));
     }
 

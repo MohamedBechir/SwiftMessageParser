@@ -23,9 +23,12 @@ public class MessageInfoService {
     private MessagePagingRepository messagePagingRepository;
 
     // Return Detailed info of Specific Message
-    public MessageDetailedInfoModel getMessageDetailInfo(Long id){
+    public List<MessageDetailedInfoModel> getMessageDetailInfo(Long id){
         AbstractSwiftMessage abstractSwiftMessage = messageRepository.findById(id).get();
-        return new MessageDetailedInfoModel(abstractSwiftMessage.getBlock1(), abstractSwiftMessage.getBlock2(), abstractSwiftMessage.getTagBlock());
+        List<MessageDetailedInfoModel> messageDetailedInfoModels = new ArrayList<>();
+        messageDetailedInfoModels.add( new MessageDetailedInfoModel(abstractSwiftMessage.getBlock1(), abstractSwiftMessage.getBlock2()
+        , abstractSwiftMessage.getTagBlock()));
+        return messageDetailedInfoModels;
     }
     
     // Return of existing messages with their genenral information(Message Type, ID, Sender, Receiver)
