@@ -1,7 +1,6 @@
 package swiftparser.messageParsing.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -11,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import swiftparser.messageParsing.payload.GeneralInfoPagination;
 import swiftparser.messageParsing.payload.MessageDetailedInfoModel;
-import swiftparser.messageParsing.payload.MessageGeneralInfoModel;
 import swiftparser.messageParsing.service.MessageParsingService;
 import swiftparser.messageParsing.service.MessageInfoService;
 
@@ -40,7 +39,7 @@ public class MessageParsingController {
 
     // For the table of SWIFT Messages
     @GetMapping("messages/decomposedMessages")
-    public List<MessageGeneralInfoModel> getDecomposedMessages(Pageable pageable) {
+    public GeneralInfoPagination getDecomposedMessages(Pageable pageable) {
          return messageInfoService.getDecomposedMessages(pageable);
     }
 }
