@@ -23,6 +23,9 @@ public class MessageStorageService {
     @Autowired
     private MessageRepository messageRepository;
 
+    @Autowired
+    MessageParsingService messageParsingService;
+
     public AbstractSwiftMessage saveMessage(MultipartFile file ) throws IOException{
        AbstractSwiftMessage abstractSwiftMessage = new AbstractSwiftMessage(
             "Bechir Jamoussi",
@@ -33,6 +36,7 @@ public class MessageStorageService {
         );
         abstractSwiftMessage.setMessageBody(ArrayUtils.toObject(file.getBytes()));
         AbstractSwiftMessage abstractSwiftMessageResponse =  messageRepository.save(abstractSwiftMessage);
+        messageParsingService.decomposeMessage(abstractSwiftMessageResponse.getMessageId());
         return abstractSwiftMessageResponse;
     } 
 

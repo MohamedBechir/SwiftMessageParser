@@ -45,10 +45,13 @@ public class MessageParsingService {
 
 
     List<TagBlock> tagBlocksList = new ArrayList<>();
+    List<AbstractBlockField> fieldsList;
+    Set<AbstractBlockField> fieldsSet;
+    TagBlock tagBlock;
 
-    private void storeBlock(SwiftTagListBlock swiftBlock, AbstractSwiftMessage message) {
+    public void storeBlock(SwiftTagListBlock swiftBlock, AbstractSwiftMessage message) {
         // Create Tag Block Instance
-        TagBlock tagBlock = new TagBlock();
+        tagBlock = new TagBlock();
         // Assign name to the block
         if (swiftBlock != null) {
             String blockName = swiftBlock.getName();
@@ -61,7 +64,7 @@ public class MessageParsingService {
             }
 
             // Create List of Tag Block Fields
-            List<AbstractBlockField> fieldsList = new ArrayList<>();
+            fieldsList = new ArrayList<>();
 
             // Assign the Tag Name and Value to the Block Field
             for (Tag tag : swiftBlock.getTags()) {
@@ -70,8 +73,11 @@ public class MessageParsingService {
                 abstractBlockField.setTagValue(tag.getValue());
                 fieldsList.add(abstractBlockField);
             }
-    
-            Set<AbstractBlockField> fieldsSet = new HashSet<>();
+
+            fieldsSet = new HashSet<>();
+            /* for (AbstractBlockField abstractBlockField : fieldsSet) {
+                System.out.println(abstractBlockField.getTagName());
+            } */
             fieldsSet.addAll(fieldsList);
             tagBlock.setBlockNumber(swiftBlock.getNumber());
             tagBlock.setFields(fieldsSet);
@@ -130,15 +136,14 @@ public class MessageParsingService {
         }
         blockRepository.save(block2);
         abstractSwiftMessage.setBlock2(block2);
-
         /*
         Swift Tag Block(Blocks 3, 4, 5)
         */
 
-        SwiftBlock3 swiftBlock3 = swiftMessage.getBlock3();
+       SwiftBlock3 swiftBlock3 = swiftMessage.getBlock3();
         SwiftBlock4 swiftBlock4 = swiftMessage.getBlock4();
         SwiftBlock5 swiftBlock5 = swiftMessage.getBlock5();
-
+        
         storeBlock(swiftBlock3, abstractSwiftMessage);
         storeBlock(swiftBlock4, abstractSwiftMessage);
         storeBlock(swiftBlock5, abstractSwiftMessage);
@@ -148,13 +153,13 @@ public class MessageParsingService {
         tagBlocksList.clear();
         abstractSwiftMessage.setTagBlock(tagBlocksSet);
         tagBlocksSet.clear();
-        Set<TagBlock> tagBlocks = abstractSwiftMessage.getTagBlock();
+        /* Set<TagBlock> tagBlocks = abstractSwiftMessage.getTagBlock();
         for (TagBlock tagBlock : tagBlocks) {
             System.out.println(tagBlock.getBlockName() + tagBlock.getBlockNumber()+": " + tagBlock.getId());
             for (AbstractBlockField field : tagBlock.getFields()) {
                 System.out.println(field.getTagName());
             }
-        }
+        } */
         messageRepository.save(abstractSwiftMessage);
 
         return "Success";

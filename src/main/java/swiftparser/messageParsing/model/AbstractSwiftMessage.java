@@ -170,10 +170,7 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
     }
 
     public void setTagBlock(Set<TagBlock> tagBlocks) {
-        this.tagBlocks.clear();
-    if (tagBlocks != null) {
-        this.tagBlocks.addAll(tagBlocks);
-    }
+        this.tagBlocks = tagBlocks;
     }
 
     public Set<TagBlock> getTagBlock() {
