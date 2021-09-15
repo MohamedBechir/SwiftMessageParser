@@ -30,7 +30,7 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
     @JoinColumn(name = "block2_id")
     private Block2 block2;
 
-    @OneToMany(orphanRemoval = true)
+    @OneToMany()
     private Set<TagBlock> tagBlocks;
 
     @JsonIgnore
