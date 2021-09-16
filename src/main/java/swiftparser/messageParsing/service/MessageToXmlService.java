@@ -1,5 +1,8 @@
 package swiftparser.messageParsing.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
@@ -15,9 +18,19 @@ public class MessageToXmlService {
     @Autowired
     MessageRepository messageRepository;
 
-    public String convertToXml(Long id) throws JsonProcessingException{
+    public String convertMessageToXml(Long id) throws JsonProcessingException{
         XmlMapper xmlMapper = new XmlMapper();
         AbstractSwiftMessage abstractSwiftMessage = messageRepository.findById(id).get();
         return xmlMapper.writeValueAsString(abstractSwiftMessage);
     }
+
+    public String convertMessagesToXml() throws JsonProcessingException{
+    XmlMapper xmlMapper = new XmlMapper();
+    List<AbstractSwiftMessage> abstractSwiftMessage = messageRepository.findAll();
+    List<String> jsonArray = new ArrayList<>();
+    for (AbstractSwiftMessage aSwiftMessage : abstractSwiftMessage) {
+        jsonArray.add(xmlMapper.writeValueAsString(aSwiftMessage));
+    }
+    return jsonArray.toString();
+}
 }

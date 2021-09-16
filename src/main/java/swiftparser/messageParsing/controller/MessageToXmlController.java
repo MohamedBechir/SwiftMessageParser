@@ -15,8 +15,13 @@ public class MessageToXmlController {
     @Autowired
     MessageToXmlService messageToXmlService;
 
-    @GetMapping("messages/{id}/toXml")
-    public String convertToXml(@PathVariable Integer id) throws JsonProcessingException {
-       return messageToXmlService.convertToXml(Long.valueOf(id));
+    @GetMapping("/messages/{id}/toXml")
+    public String convertMessageToXml(@PathVariable Integer id) throws JsonProcessingException {
+       return messageToXmlService.convertMessageToXml(Long.valueOf(id));
+    }
+
+    @GetMapping("/messages/toXml")
+    public String convertMessagesToXml() throws JsonProcessingException {
+       return messageToXmlService.convertMessagesToXml();
     } 
 }
