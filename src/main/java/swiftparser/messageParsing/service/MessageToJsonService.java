@@ -31,7 +31,7 @@ public class MessageToJsonService {
         List<MessageDetailedInfoModel> jsonArray = new ArrayList<>();
         for (AbstractSwiftMessage aSwiftMessage : abstractSwiftMessage) {
             jsonArray.add(new MessageDetailedInfoModel(aSwiftMessage.getBlock1(), aSwiftMessage.getBlock2()
-            , aSwiftMessage.getTagBlock()));
+            , aSwiftMessage.getTagBlock(), String.valueOf(aSwiftMessage.getMessageId())));
         }
         return jsonArray;
     }

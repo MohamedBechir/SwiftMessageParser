@@ -7,9 +7,18 @@ import swiftparser.messageParsing.model.Block2;
 import swiftparser.messageParsing.model.TagBlock;
 
 public class MessageDetailedInfoModel {
+    String messageId;
     Block1 block1;
     Block2 block2;
     Set<TagBlock> tagBlock;
+
+
+    public MessageDetailedInfoModel(Block1 block1, Block2 block2, Set<TagBlock> tagBlock, String messageId) {
+        this.messageId = messageId;
+        this.block1 = block1;
+        this.block2 = block2;
+        this.tagBlock = tagBlock;
+    }
 
 
     public MessageDetailedInfoModel(Block1 block1, Block2 block2, Set<TagBlock> tagBlock) {
@@ -18,6 +27,14 @@ public class MessageDetailedInfoModel {
         this.tagBlock = tagBlock;
     }
 
+
+    public String getMessageId() {
+        return this.messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
 
     public Block1 getBlock1() {
         return this.block1;
