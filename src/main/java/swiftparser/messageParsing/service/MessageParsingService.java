@@ -75,9 +75,6 @@ public class MessageParsingService {
             }
 
             fieldsSet = new HashSet<>();
-            /* for (AbstractBlockField abstractBlockField : fieldsSet) {
-                System.out.println(abstractBlockField.getTagName());
-            } */
             fieldsSet.addAll(fieldsList);
             tagBlock.setBlockNumber(swiftBlock.getNumber());
             tagBlock.setFields(fieldsSet);
@@ -152,14 +149,6 @@ public class MessageParsingService {
         tagBlocksSet.addAll(tagBlocksList);
         tagBlocksList.clear();
         abstractSwiftMessage.setTagBlock(tagBlocksSet);
-        tagBlocksSet.clear();
-        /* Set<TagBlock> tagBlocks = abstractSwiftMessage.getTagBlock();
-        for (TagBlock tagBlock : tagBlocks) {
-            System.out.println(tagBlock.getBlockName() + tagBlock.getBlockNumber()+": " + tagBlock.getId());
-            for (AbstractBlockField field : tagBlock.getFields()) {
-                System.out.println(field.getTagName());
-            }
-        } */
         messageRepository.save(abstractSwiftMessage);
 
         return "Success";

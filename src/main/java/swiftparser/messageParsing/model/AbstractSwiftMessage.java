@@ -174,6 +174,6 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
     }
 
     public Set<TagBlock> getTagBlock() {
-        return tagBlocks;
+        return this.tagBlocks;
     }
 }

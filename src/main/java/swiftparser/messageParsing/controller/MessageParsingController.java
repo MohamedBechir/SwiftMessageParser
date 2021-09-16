@@ -1,13 +1,10 @@
 package swiftparser.messageParsing.controller;
 
-import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import swiftparser.messageParsing.payload.GeneralInfoPagination;
@@ -23,13 +20,6 @@ public class MessageParsingController {
 
     @Autowired
     MessageInfoService messageInfoService;
-
-    // Decompose the message into Blocks and Store them
-    @PostMapping("/messages/decomposedMessage")
-    public String decomposeMessage(@RequestParam("id") Integer id) throws IOException {
-        messageParsingService.decomposeMessage(Long.valueOf(id));
-        return "Success";
-    }
 
     // Get Message Detail Info
     @GetMapping("/messages/decomposedMessages/{id}")
