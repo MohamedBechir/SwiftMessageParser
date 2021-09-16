@@ -24,13 +24,13 @@ public class MessageToXmlService {
         return xmlMapper.writeValueAsString(abstractSwiftMessage);
     }
 
-    public String convertMessagesToXml() throws JsonProcessingException{
+    public List<Object> convertMessagesToXml() throws JsonProcessingException{
     XmlMapper xmlMapper = new XmlMapper();
     List<AbstractSwiftMessage> abstractSwiftMessage = messageRepository.findAll();
-    List<String> jsonArray = new ArrayList<>();
+    List<Object> jsonArray = new ArrayList<>();
     for (AbstractSwiftMessage aSwiftMessage : abstractSwiftMessage) {
         jsonArray.add(xmlMapper.writeValueAsString(aSwiftMessage));
     }
-    return jsonArray.toString();
+    return jsonArray;
 }
 }

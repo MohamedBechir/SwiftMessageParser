@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import swiftparser.messageParsing.payload.MessageDetailedInfoModel;
+import swiftparser.messageParsing.payload.MessageSending;
 import swiftparser.messageParsing.repository.MessageRepository;
 import swiftparser.messageParsing.service.MessageToJsonService;
 
@@ -30,15 +31,15 @@ public class MessageToJsonController {
     @Autowired
     private JmsTemplate jmsTemplate;
 
-    @PostMapping("/messages/send/{id}/toJson")
-    public Object sendJSONToQueue(@PathVariable Integer id) throws JsonProcessingException{
+    @PostMapping("/messages/json/send/{id}")
+    public MessageSending sendJSONToQueue(@PathVariable Integer id) throws JsonProcessingException{
         try{
             String Json = messageToJsonService.convertMessageToJson(Long.valueOf(id));
             jmsTemplate.convertAndSend("DEV.QUEUE.2", Json);
-            return  Json;
+            return  new MessageSending("Message successfully sent to queue") ;
         }catch(JmsException ex){
             ex.printStackTrace();
-            return "FAIL";
+            return  new MessageSending(ex.toString()) ;
         }
     }
 
