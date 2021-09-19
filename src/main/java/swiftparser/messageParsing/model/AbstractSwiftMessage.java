@@ -20,6 +20,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @EntityListeners(AuditingEntityListener.class)
 @Entity
+@javax.persistence.Table(name = "abstract_swift_message")
 public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDateTime > {
 
     @OneToOne

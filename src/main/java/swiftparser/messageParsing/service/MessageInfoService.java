@@ -30,8 +30,12 @@ public class MessageInfoService {
     }
     
     // Return of existing messages with their genenral information(Message Type, ID, Sender, Receiver)
-    public GeneralInfoPagination getDecomposedMessages(Pageable pageable) {
-        Page<AbstractSwiftMessage> abstractSwiftMessages = messagePagingRepository.findAll(pageable);
+    public GeneralInfoPagination getDecomposedMessages(Pageable pageable, String messageType) {
+        Page<AbstractSwiftMessage> abstractSwiftMessages = messagePagingRepository.findByBlock2MessageType(pageable, messageType);
+        System.out.println(abstractSwiftMessages);
+        for (AbstractSwiftMessage abstractSwiftMessage : abstractSwiftMessages) {
+            System.out.println(abstractSwiftMessage);
+        }
         ArrayList<MessageGeneralInfoModel> messageGeneralInfoModels = new ArrayList<>();
         for (AbstractSwiftMessage abstractSwiftMessage : abstractSwiftMessages) {
             messageGeneralInfoModels.add( new MessageGeneralInfoModel(String.valueOf(abstractSwiftMessage.getMessageId()),
