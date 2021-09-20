@@ -16,8 +16,13 @@ public class MessagesStatisticsController {
     MessagesStatisticsService messagesStatisticsService;
 
 
-    @GetMapping("/messages/statistics")
-    public List<MessagesPerTypeStats> getStatistics() {
-        return messagesStatisticsService.getStatistics();
+    @GetMapping("/messages/statistics/pertype")
+    public List<MessagesPerTypeStats> getMessagesPerType() {
+        return messagesStatisticsService.getMessagesPerType();
+    }
+
+    @GetMapping("/messages/statistics/lastfive")
+    public List<String> getLastFiveMessages() {
+        return messagesStatisticsService.getLastFiveMessages();
     }
 }

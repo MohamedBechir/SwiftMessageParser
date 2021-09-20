@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import swiftparser.messageParsing.model.Block2;
 import swiftparser.messageParsing.payload.MessagesPerTypeStats;
+import swiftparser.messageParsing.repository.MessageRepository;
 import swiftparser.messageParsing.repository.StatisticsRepository;
 
 @Service
@@ -17,23 +18,12 @@ public class MessagesStatisticsService {
     @Autowired
     StatisticsRepository statisticsRepository;
 
+    @Autowired
+    MessageRepository messageRepository;
+
     List<String> colorsList = new ArrayList<>();
 
-    public List<MessagesPerTypeStats> getStatistics(){
-        colorsList.add("#0088FE");
-        colorsList.add("#00C49F");
-        colorsList.add("#F49D37");
-        colorsList.add("#FF8042");
-        colorsList.add("#FFF");
-        colorsList.add("#b22c2c");
-        colorsList.add("#fb8585");
-        colorsList.add("#d1d1e5");
-        colorsList.add("#ccabc5");
-        colorsList.add("#e8c273");
-        colorsList.add("#7ca661");
-        colorsList.add("#ab8970");
-
-
+    public List<MessagesPerTypeStats> getMessagesPerType(){
         List<Block2> block2s = statisticsRepository.findAll();
         List<MessagesPerTypeStats> messagesPerTypeStats = new ArrayList<>();
         for (Block2 block2 : block2s) {
@@ -41,5 +31,9 @@ public class MessagesStatisticsService {
             messagesPerTypeStats.add(new MessagesPerTypeStats(block2.getMessageType(), stats.get(0).intValue()));
         }
         return messagesPerTypeStats;
+    }
+
+    public List<String> getLastFiveMessages(){
+        return statisticsRepository.findLastFiveMessages();
     }
 }

@@ -14,4 +14,7 @@ public interface StatisticsRepository extends JpaRepository<Block2, Long> {
 
     @Query(value = "SELECT DISTINCT ON (message_type) * FROM Block2", nativeQuery = true)
     List<Block2> findAll();
+
+    @Query(value = "SELECT DISTINCT message_type FROM Block2 ORDER by message_type DESC LIMIT 5", nativeQuery = true)
+    List<String> findLastFiveMessages();
 }
