@@ -34,6 +34,8 @@ public class MessageStorageService {
             Date.from(Instant.now()),
             file.getSize()
         );
+       /*  String filename = file.getOriginalFilename();
+        String extension = filename.substring(filename.lastIndexOf(".") + 1); */
         abstractSwiftMessage.setMessageBody(ArrayUtils.toObject(file.getBytes()));
         AbstractSwiftMessage abstractSwiftMessageResponse =  messageRepository.save(abstractSwiftMessage);
         messageParsingService.decomposeMessage(abstractSwiftMessageResponse.getMessageId());

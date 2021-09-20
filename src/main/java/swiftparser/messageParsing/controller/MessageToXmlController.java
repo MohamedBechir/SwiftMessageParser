@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import swiftparser.messageParsing.payload.MessageSending;
-
+import swiftparser.messageParsing.payload.XMLMessageReponse;
 
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.core.JmsTemplate;
@@ -31,15 +31,10 @@ public class MessageToXmlController {
     private JmsTemplate jmsTemplate;
 
     @PostMapping("/messages/xml/send/{id}")
-    public MessageSending sendXMLToQueue(@PathVariable Integer id) throws JsonProcessingException{
-        try{
-            String Json = messageToXmlService.convertMessageToXml(Long.valueOf(id));
-            jmsTemplate.convertAndSend("DEV.QUEUE.2", Json);
-            return  new MessageSending("Message successfully sent to queue") ;
-        }catch(JmsException ex){
-            ex.printStackTrace();
-            return  new MessageSending(ex.toString()) ;
-        }
+    public MessageSending sendXMLToQueue(@PathVariable Integer id) throws JmsException, JsonProcessingException{
+       String Json = messageToXmlService.convertMessageToXml(Long.valueOf(id));
+       jmsTemplate.convertAndSend("DEV.QUEUE.2", Json);
+       return  new MessageSending("Message successfully sent to queue") ;
     }
 
     @GetMapping("/messages/{id}/toxml")
@@ -48,7 +43,7 @@ public class MessageToXmlController {
     }
 
     @GetMapping("/messages/toxml")
-    public List<String> convertMessagesToXml() throws JsonProcessingException {
+    public List<XMLMessageReponse> convertMessagesToXml() throws JsonProcessingException {
        return messageToXmlService.convertMessagesToXml();
     } 
 }

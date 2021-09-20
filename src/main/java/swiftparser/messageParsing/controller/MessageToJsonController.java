@@ -32,15 +32,10 @@ public class MessageToJsonController {
     private JmsTemplate jmsTemplate;
 
     @PostMapping("/messages/json/send/{id}")
-    public MessageSending sendJSONToQueue(@PathVariable Integer id) throws JsonProcessingException{
-        try{
+    public MessageSending sendJSONToQueue(@PathVariable Integer id) throws JmsException, JsonProcessingException{
             String Json = messageToJsonService.convertMessageToJson(Long.valueOf(id));
             jmsTemplate.convertAndSend("DEV.QUEUE.2", Json);
-            return  new MessageSending("Message successfully sent to queue") ;
-        }catch(JmsException ex){
-            ex.printStackTrace();
-            return  new MessageSending(ex.toString()) ;
-        }
+            return  new MessageSending("Message successfully sent to queue");
     }
 
     @GetMapping("/messages/tojson")

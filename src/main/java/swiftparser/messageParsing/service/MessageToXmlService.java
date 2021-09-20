@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import swiftparser.messageParsing.model.AbstractSwiftMessage;
+import swiftparser.messageParsing.payload.XMLMessageReponse;
 import swiftparser.messageParsing.repository.MessageRepository;
 
 @Service
@@ -24,12 +25,12 @@ public class MessageToXmlService {
         return xmlMapper.writeValueAsString(abstractSwiftMessage);
     }
 
-    public List<String> convertMessagesToXml() throws JsonProcessingException{
+    public List<XMLMessageReponse> convertMessagesToXml() throws JsonProcessingException{
     XmlMapper xmlMapper = new XmlMapper();
     List<AbstractSwiftMessage> abstractSwiftMessage = messageRepository.findAll();
-    List<String> jsonArray = new ArrayList<>();
+    List<XMLMessageReponse> jsonArray = new ArrayList<>();
     for (AbstractSwiftMessage aSwiftMessage : abstractSwiftMessage) {
-        jsonArray.add(xmlMapper.writeValueAsString(aSwiftMessage));
+        jsonArray.add(new XMLMessageReponse(xmlMapper.writeValueAsString(aSwiftMessage), String.valueOf(aSwiftMessage.getMessageId()), aSwiftMessage.getBlock2().getMessageType()));
     }
     return jsonArray;
 }
