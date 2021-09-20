@@ -48,7 +48,7 @@ public class MessageToXmlController {
     }
 
     @GetMapping("/messages/toxml")
-    public List<Object> convertMessagesToXml() throws JsonProcessingException {
+    public List<String> convertMessagesToXml() throws JsonProcessingException {
        return messageToXmlService.convertMessagesToXml();
     } 
 }
