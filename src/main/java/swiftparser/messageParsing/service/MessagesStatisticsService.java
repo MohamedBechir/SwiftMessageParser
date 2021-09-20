@@ -3,7 +3,6 @@ package swiftparser.messageParsing.service;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,9 +38,8 @@ public class MessagesStatisticsService {
         List<MessagesPerTypeStats> messagesPerTypeStats = new ArrayList<>();
         for (Block2 block2 : block2s) {
             List<BigInteger> stats = statisticsRepository.findByMessageType(block2.getMessageType());
-            messagesPerTypeStats.add(new MessagesPerTypeStats(block2.getMessageType(), colorsList.get(ThreadLocalRandom.current().nextInt(0, 5 + 1)), stats.get(0).intValue()));
+            messagesPerTypeStats.add(new MessagesPerTypeStats(block2.getMessageType(), stats.get(0).intValue()));
         }
         return messagesPerTypeStats;
-
     }
 }

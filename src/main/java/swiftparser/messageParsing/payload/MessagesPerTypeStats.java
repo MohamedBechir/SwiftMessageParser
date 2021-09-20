@@ -1,40 +1,28 @@
 package swiftparser.messageParsing.payload;
 
 public class MessagesPerTypeStats {
-    private String messageType;
-    private String color;
-    private Integer redundancy;
+    private String name;
+    private Integer value;
 
-
-    public MessagesPerTypeStats(String messageType, String color, Integer redundancy) {
-        this.messageType = messageType;
-        this.color = color;
-        this.redundancy = redundancy;
+    public MessagesPerTypeStats(String name, Integer value) {
+        this.name = name;
+        this.value = value;
     }
 
-    public String getMessageType() {
-        return this.messageType;
+    public String getName() {
+        return this.name;
     }
 
-    public void setMessageType(String messageType) {
-        this.messageType = messageType;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getColor() {
-        return this.color;
+    public Integer getValue() {
+        return this.value;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-
-    public Integer getRedundancy() {
-        return this.redundancy;
-    }
-
-    public void setRedundancy(Integer redundancy) {
-        this.redundancy = redundancy;
+    public void setValue(Integer value) {
+        this.value = value;
     }
 
 
