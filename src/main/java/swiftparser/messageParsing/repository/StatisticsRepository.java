@@ -17,4 +17,10 @@ public interface StatisticsRepository extends JpaRepository<Block2, Long> {
 
     @Query(value = "SELECT DISTINCT message_type FROM Block2 ORDER by message_type DESC LIMIT 5", nativeQuery = true)
     List<String> findLastFiveMessages();
+
+    @Query("SELECT COUNT(b) FROM AbstractSwiftMessage b WHERE sent_json=false AND sent_xml=false")
+    List<BigInteger> findReceived();
+
+    @Query("SELECT COUNT(b) FROM AbstractSwiftMessage b WHERE sent_json=true OR sent_xml=true")
+    List<BigInteger> findSent();
 }

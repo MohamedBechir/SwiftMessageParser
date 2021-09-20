@@ -1,6 +1,8 @@
 package swiftparser.messageParsing.service;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,6 +24,10 @@ public class MessageToXmlService {
     public String convertMessageToXml(Long id) throws JsonProcessingException{
         XmlMapper xmlMapper = new XmlMapper();
         AbstractSwiftMessage abstractSwiftMessage = messageRepository.findById(id).get();
+        AbstractSwiftMessage aMessage = new AbstractSwiftMessage();
+        aMessage.setSentOn(Date.from(Instant.now()));
+        aMessage.setSentXml(true);
+        messageRepository.save(aMessage);
         return xmlMapper.writeValueAsString(abstractSwiftMessage);
     }
 

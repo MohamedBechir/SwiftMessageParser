@@ -36,4 +36,13 @@ public class MessagesStatisticsService {
     public List<String> getLastFiveMessages(){
         return statisticsRepository.findLastFiveMessages();
     }
+
+    public List<MessagesPerTypeStats> getSentReceived(){
+       List<BigInteger> received =  statisticsRepository.findReceived();
+       List<BigInteger> sent = statisticsRepository.findSent();
+       List<MessagesPerTypeStats> receivedSent = new ArrayList<>();
+       receivedSent.add(new MessagesPerTypeStats("Messages Received", received.get(0).intValue()));
+       receivedSent.add(new MessagesPerTypeStats("Messages Sent", sent.get(0).intValue()));
+       return receivedSent;
+    }
 }

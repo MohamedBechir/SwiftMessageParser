@@ -47,15 +47,5 @@ public class MessageToJsonController {
             ex.printStackTrace();
         }
         return JsonArray;
-    }
-
-    @GetMapping("messages/receive")
-    Object ReceiveJSONFromQueue(){
-    try{
-        return jmsTemplate.receiveAndConvert("DEV.QUEUE.2");
-    }catch(JmsException ex){
-        ex.printStackTrace();
-        return "FAIL";
-    }
 }
 }

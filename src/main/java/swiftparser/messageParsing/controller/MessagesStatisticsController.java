@@ -25,4 +25,9 @@ public class MessagesStatisticsController {
     public List<String> getLastFiveMessages() {
         return messagesStatisticsService.getLastFiveMessages();
     }
+
+    @GetMapping("/messages/statistics/sentreceived")
+    public List<MessagesPerTypeStats> getSentReceived() {
+         return messagesStatisticsService.getSentReceived();
+    }
 }

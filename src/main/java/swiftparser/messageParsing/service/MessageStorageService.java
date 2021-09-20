@@ -30,6 +30,7 @@ public class MessageStorageService {
        AbstractSwiftMessage abstractSwiftMessage = new AbstractSwiftMessage(
             "Bechir Jamoussi",
             Date.from(Instant.now()),
+            Date.from(Instant.now()),
             "Bechir Jamoussi",
             Date.from(Instant.now()),
             file.getSize()

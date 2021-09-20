@@ -17,6 +17,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Auditable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.lang.Nullable;
 
 @EntityListeners(AuditingEntityListener.class)
 @Entity
@@ -49,6 +50,13 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
     @Temporal(TemporalType.TIMESTAMP)
     protected Date createdDate;
 
+    @Nullable
+    @Temporal(TemporalType.TIMESTAMP)
+    protected Date sentOn;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    protected Date receivedOn;
+
     @JsonIgnore
     @LastModifiedBy
     protected String lastModifiedBy;
@@ -58,6 +66,12 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
     @Temporal(TemporalType.TIMESTAMP)
     protected Date lastModifieDate;
 
+    @Nullable
+    protected boolean sentXml;
+
+    @Nullable
+    protected boolean sentJson;
+
     @Lob
     @JsonIgnore
     protected Byte[] messageBody;
@@ -65,9 +79,10 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
     @JsonIgnore
     protected Long fileSize;
 
-    public AbstractSwiftMessage(String createdBy, Date createdDate, String lastModifiedBy, Date lastModifieDate, Long fileSize)
+    public AbstractSwiftMessage(String createdBy, Date createdDate, Date receivedOn, String lastModifiedBy, Date lastModifieDate, Long fileSize)
     {
         this.createdBy = createdBy;
+        this.receivedOn = receivedOn;
         this.createdDate = createdDate;
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifieDate = lastModifieDate;
@@ -101,6 +116,22 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
 
     public void setCreatedAt(Date createdAt){
         this.createdDate = createdAt;
+    }
+
+    public Date getSentOn(){
+        return sentOn;
+    }
+
+    public void setSentOn(Date sentOn){
+        this.sentOn = sentOn;
+    }
+
+    public Date getReceivedOn(){
+        return receivedOn;
+    }
+
+    public void setReceivedOn(Date receivedOn){
+        this.receivedOn = receivedOn;
     }
 
     @Override
@@ -177,4 +208,49 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
     public Set<TagBlock> getTagBlock() {
         return this.tagBlocks;
     }
+
+
+    public Set<TagBlock> getTagBlocks() {
+        return this.tagBlocks;
+    }
+
+    public void setTagBlocks(Set<TagBlock> tagBlocks) {
+        this.tagBlocks = tagBlocks;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getLastModifieDate() {
+        return this.lastModifieDate;
+    }
+
+    public void setLastModifieDate(Date lastModifieDate) {
+        this.lastModifieDate = lastModifieDate;
+    }
+
+    public boolean isSentXml() {
+        return this.sentXml;
+    }
+
+    public boolean getSentXml() {
+        return this.sentXml;
+    }
+
+    public void setSentXml(boolean sentXml) {
+        this.sentXml = sentXml;
+    }
+
+    public boolean isSentJson() {
+        return this.sentJson;
+    }
+
+    public boolean getSentJson() {
+        return this.sentJson;
+    }
+
+    public void setSentJson(boolean sentJson) {
+        this.sentJson = sentJson;
+    }
+
 }

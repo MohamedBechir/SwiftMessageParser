@@ -4,6 +4,11 @@ public class MessagesPerTypeStats {
     private String name;
     private Integer value;
 
+
+    public MessagesPerTypeStats() {
+    }
+
+
     public MessagesPerTypeStats(String name, Integer value) {
         this.name = name;
         this.value = value;
