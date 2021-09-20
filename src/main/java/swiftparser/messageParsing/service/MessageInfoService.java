@@ -1,6 +1,7 @@
 package swiftparser.messageParsing.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,14 +29,29 @@ public class MessageInfoService {
         return new MessageDetailedInfoModel(abstractSwiftMessage.getBlock1(), abstractSwiftMessage.getBlock2()
         , abstractSwiftMessage.getTagBlock());
     }
+
+    public GeneralInfoPagination getDecomposedMessages(Pageable pageable) {
+        Page<AbstractSwiftMessage> abstractSwiftMessages = messagePagingRepository.findAll(pageable);
+       ArrayList<MessageGeneralInfoModel> messageGeneralInfoModels = new ArrayList<>();
+       for (AbstractSwiftMessage abstractSwiftMessage : abstractSwiftMessages) {
+           messageGeneralInfoModels.add( new MessageGeneralInfoModel(String.valueOf(abstractSwiftMessage.getMessageId()),
+           abstractSwiftMessage.getBlock1().getLogicalTerminal(),
+           abstractSwiftMessage.getBlock1().getLogicalTerminal(),
+           "MT" + abstractSwiftMessage.getBlock2().getMessageType() ,
+           abstractSwiftMessage.getCreatedAt().toString()
+           ));
+       }
+       GeneralInfoPagination generalInfoPagination = new GeneralInfoPagination();
+       generalInfoPagination.setMessageGeneralInfoModel(messageGeneralInfoModels);
+       generalInfoPagination.setPageNumber(String.valueOf(abstractSwiftMessages.getPageable().getPageNumber()));
+       generalInfoPagination.setPageSize(String.valueOf(abstractSwiftMessages.getPageable().getPageSize()));
+       generalInfoPagination.setTotalPages(String.valueOf(abstractSwiftMessages.getTotalPages()));
+       return generalInfoPagination;
+   }
     
     // Return of existing messages with their genenral information(Message Type, ID, Sender, Receiver)
-    public GeneralInfoPagination getDecomposedMessages(Pageable pageable, String messageType) {
-        Page<AbstractSwiftMessage> abstractSwiftMessages = messagePagingRepository.findByBlock2MessageType(pageable, messageType);
-        System.out.println(abstractSwiftMessages);
-        for (AbstractSwiftMessage abstractSwiftMessage : abstractSwiftMessages) {
-            System.out.println(abstractSwiftMessage);
-        }
+    public GeneralInfoPagination getDecomposedMessagesPerType(String messageType) {
+         List<AbstractSwiftMessage> abstractSwiftMessages = messagePagingRepository.findByBlock2MessageType(messageType);
         ArrayList<MessageGeneralInfoModel> messageGeneralInfoModels = new ArrayList<>();
         for (AbstractSwiftMessage abstractSwiftMessage : abstractSwiftMessages) {
             messageGeneralInfoModels.add( new MessageGeneralInfoModel(String.valueOf(abstractSwiftMessage.getMessageId()),
@@ -47,9 +63,6 @@ public class MessageInfoService {
         }
         GeneralInfoPagination generalInfoPagination = new GeneralInfoPagination();
         generalInfoPagination.setMessageGeneralInfoModel(messageGeneralInfoModels);
-        generalInfoPagination.setPageNumber(String.valueOf(abstractSwiftMessages.getPageable().getPageNumber()));
-        generalInfoPagination.setPageSize(String.valueOf(abstractSwiftMessages.getPageable().getPageSize()));
-        generalInfoPagination.setTotalPages(String.valueOf(abstractSwiftMessages.getTotalPages()));
         return generalInfoPagination;
     }
 }

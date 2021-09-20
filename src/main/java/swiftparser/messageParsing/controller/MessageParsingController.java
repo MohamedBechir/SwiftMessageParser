@@ -29,7 +29,12 @@ public class MessageParsingController {
 
     // For the table of SWIFT Messages
     @GetMapping("/messages/decomposedMessage/{messageType}")
-    public GeneralInfoPagination getDecomposedMessages(Pageable pageable, @PathVariable String messageType) {
-        return messageInfoService.getDecomposedMessages(pageable, messageType);
+    public GeneralInfoPagination getDecomposedMessagesPerType(@PathVariable(required = false) String messageType) {
+        return messageInfoService.getDecomposedMessagesPerType(messageType);
+    }
+
+    @GetMapping("/messages/decomposedMessage")
+    public GeneralInfoPagination getDecomposedMessages(Pageable pageable) {
+        return messageInfoService.getDecomposedMessages(pageable);
     }
 }
