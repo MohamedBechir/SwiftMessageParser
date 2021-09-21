@@ -10,11 +10,13 @@ public class MessageDetailedInfoModel {
     String messageId;
     Block1 block1;
     Block2 block2;
+    boolean sentJson;
     Set<TagBlock> tagBlock;
 
 
-    public MessageDetailedInfoModel(Block1 block1, Block2 block2, Set<TagBlock> tagBlock, String messageId) {
+    public MessageDetailedInfoModel(Block1 block1, Block2 block2, Set<TagBlock> tagBlock, String messageId, boolean sent) {
         this.messageId = messageId;
+        this.sentJson = sent;
         this.block1 = block1;
         this.block2 = block2;
         this.tagBlock = tagBlock;
@@ -58,6 +60,19 @@ public class MessageDetailedInfoModel {
 
     public void setTagBlock(Set<TagBlock> tagBlock) {
         this.tagBlock = tagBlock;
+    }
+
+
+    public boolean isSentJson() {
+        return this.sentJson;
+    }
+
+    public boolean getSent() {
+        return this.sentJson;
+    }
+
+    public void setSentJson(boolean sentJson) {
+        this.sentJson = sentJson;
     }
 
 }

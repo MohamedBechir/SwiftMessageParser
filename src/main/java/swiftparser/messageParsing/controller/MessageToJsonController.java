@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import swiftparser.messageParsing.model.AbstractSwiftMessage;
 import swiftparser.messageParsing.payload.MessageDetailedInfoModel;
-import swiftparser.messageParsing.payload.MessageSending;
+import swiftparser.messageParsing.payload.SentToQueueResponse;
 import swiftparser.messageParsing.repository.MessageRepository;
 import swiftparser.messageParsing.service.MessageToJsonService;
 
@@ -32,10 +33,11 @@ public class MessageToJsonController {
     private JmsTemplate jmsTemplate;
 
     @PostMapping("/messages/json/send/{id}")
-    public MessageSending sendJSONToQueue(@PathVariable Integer id) throws JmsException, JsonProcessingException{
+    public SentToQueueResponse sendJSONToQueue(@PathVariable Integer id) throws JmsException, JsonProcessingException{
             String Json = messageToJsonService.convertMessageToJson(Long.valueOf(id));
             jmsTemplate.convertAndSend("DEV.QUEUE.2", Json);
-            return  new MessageSending("Message successfully sent to queue");
+            AbstractSwiftMessage abstractSwiftMessage = messageRepository.findById(Long.valueOf(id)).get();
+            return new SentToQueueResponse(String.valueOf(id), abstractSwiftMessage.getSentJson(), String.valueOf(abstractSwiftMessage.getSentOnJson()));
     }
 
     @GetMapping("/messages/tojson")

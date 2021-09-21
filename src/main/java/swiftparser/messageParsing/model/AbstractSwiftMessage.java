@@ -52,7 +52,12 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
 
     @Nullable
     @Temporal(TemporalType.TIMESTAMP)
-    protected Date sentOn;
+    protected Date sentOnJson;
+
+
+    @Nullable
+    @Temporal(TemporalType.TIMESTAMP)
+    protected Date sentOnXml;
 
     @Temporal(TemporalType.TIMESTAMP)
     protected Date receivedOn;
@@ -116,14 +121,6 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
 
     public void setCreatedAt(Date createdAt){
         this.createdDate = createdAt;
-    }
-
-    public Date getSentOn(){
-        return sentOn;
-    }
-
-    public void setSentOn(Date sentOn){
-        this.sentOn = sentOn;
     }
 
     public Date getReceivedOn(){
@@ -252,5 +249,23 @@ public class AbstractSwiftMessage implements Auditable<String, Integer, LocalDat
     public void setSentJson(boolean sentJson) {
         this.sentJson = sentJson;
     }
+
+
+    public Date getSentOnJson() {
+        return this.sentOnJson;
+    }
+
+    public void setSentOnJson(Date sentOnJson) {
+        this.sentOnJson = sentOnJson;
+    }
+
+    public Date getSentOnXml() {
+        return this.sentOnXml;
+    }
+
+    public void setSentOnXml(Date sentOnXml) {
+        this.sentOnXml = sentOnXml;
+    }
+
 
 }
