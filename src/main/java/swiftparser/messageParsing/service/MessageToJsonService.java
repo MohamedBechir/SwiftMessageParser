@@ -25,10 +25,9 @@ public class MessageToJsonService {
     public String convertMessageToJson(Long id) throws JsonProcessingException{
         ObjectMapper objectMapper = new ObjectMapper();
         AbstractSwiftMessage abstractSwiftMessage = messageRepository.findById(id).get();
-        AbstractSwiftMessage aMessage = new AbstractSwiftMessage();
-        aMessage.setSentOn(Date.from(Instant.now()));
-        aMessage.setSentJson(true);
-        messageRepository.save(aMessage);
+        abstractSwiftMessage.setSentJson(true);
+        abstractSwiftMessage.setSentOnJson(Date.from(Instant.now()));
+        messageRepository.save(abstractSwiftMessage);
         return objectMapper.writeValueAsString(abstractSwiftMessage);
     }
 
@@ -37,7 +36,7 @@ public class MessageToJsonService {
         List<MessageDetailedInfoModel> jsonArray = new ArrayList<>();
         for (AbstractSwiftMessage aSwiftMessage : abstractSwiftMessage) {
             jsonArray.add(new MessageDetailedInfoModel(aSwiftMessage.getBlock1(), aSwiftMessage.getBlock2()
-            , aSwiftMessage.getTagBlock(), String.valueOf(aSwiftMessage.getMessageId())));
+            , aSwiftMessage.getTagBlock(), String.valueOf(aSwiftMessage.getMessageId()), aSwiftMessage.getSentJson()));
         }
         return jsonArray;
     }

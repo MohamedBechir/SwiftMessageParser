@@ -4,9 +4,11 @@ public class XMLMessageReponse {
     private String messages;
     private String messageID;
     private String messageType;
+    private boolean sentXml;
 
-    public XMLMessageReponse(String string, String messageID, String messageType) {
+    public XMLMessageReponse(String string, String messageID, String messageType, boolean sentXml) {
         this.messages = string;
+        this.sentXml = sentXml;
         this.messageID = messageID;
         this.messageType = messageType;
     }
@@ -33,6 +35,19 @@ public class XMLMessageReponse {
 
     public void setMessageType(String messageType) {
         this.messageType = messageType;
+    }
+
+
+    public boolean isSentXml() {
+        return this.sentXml;
+    }
+
+    public boolean getSentXml() {
+        return this.sentXml;
+    }
+
+    public void setSentXml(boolean sentXml) {
+        this.sentXml = sentXml;
     }
 
 }

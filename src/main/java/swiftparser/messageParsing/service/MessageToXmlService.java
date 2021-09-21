@@ -24,10 +24,9 @@ public class MessageToXmlService {
     public String convertMessageToXml(Long id) throws JsonProcessingException{
         XmlMapper xmlMapper = new XmlMapper();
         AbstractSwiftMessage abstractSwiftMessage = messageRepository.findById(id).get();
-        AbstractSwiftMessage aMessage = new AbstractSwiftMessage();
-        aMessage.setSentOn(Date.from(Instant.now()));
-        aMessage.setSentXml(true);
-        messageRepository.save(aMessage);
+        abstractSwiftMessage.setSentXml(true);
+        abstractSwiftMessage.setSentOnXml(Date.from(Instant.now()));
+        messageRepository.save(abstractSwiftMessage);
         return xmlMapper.writeValueAsString(abstractSwiftMessage);
     }
 
@@ -36,7 +35,7 @@ public class MessageToXmlService {
     List<AbstractSwiftMessage> abstractSwiftMessage = messageRepository.findAll();
     List<XMLMessageReponse> jsonArray = new ArrayList<>();
     for (AbstractSwiftMessage aSwiftMessage : abstractSwiftMessage) {
-        jsonArray.add(new XMLMessageReponse(xmlMapper.writeValueAsString(aSwiftMessage), String.valueOf(aSwiftMessage.getMessageId()), aSwiftMessage.getBlock2().getMessageType()));
+        jsonArray.add(new XMLMessageReponse(xmlMapper.writeValueAsString(aSwiftMessage), String.valueOf(aSwiftMessage.getMessageId()), aSwiftMessage.getBlock2().getMessageType(),aSwiftMessage.getSentXml()));
     }
     return jsonArray;
 }
